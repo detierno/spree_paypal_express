@@ -14,9 +14,14 @@ module SpreePaypalExpress
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
         Rails.env.production? ? require(c) : load(c)
       end
+      
+      Dir.glob(File.join(File.dirname(__FILE__), "active_merchant/billing/*.rb")) do |c|
+        Rails.env.production? ? require(c) : load(c)
+      end
 
       BillingIntegration::PaypalExpress.register
       BillingIntegration::PaypalExpressUk.register
+      BillingIntegration::PaypalExpressBr.register
     end
 
     config.to_prepare &method(:activate).to_proc
