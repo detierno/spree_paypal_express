@@ -74,6 +74,7 @@ CheckoutController.class_eval do
                                          :address1   => ship_address["address1"],
                                          :address2   => ship_address["address2"],
                                          :city       => ship_address["city"],
+                                         :cpf        => @order.ship_address.cpf
                                          :country    => Country.find_by_iso(ship_address["country"]),
                                          :zipcode    => ship_address["zip"],
                                          # phone is currently blanked in AM's PPX response lib
