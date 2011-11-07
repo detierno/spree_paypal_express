@@ -74,10 +74,12 @@ CheckoutController.class_eval do
                                          :address1   => ship_address["address1"],
                                          :address2   => ship_address["address2"],
                                          :city       => ship_address["city"],
+                                         :number     => ship_address["number"], 
                                          # :cpf        => @order.user.cpf,
                                          :country    => Country.find_by_iso(ship_address["country"]),
                                          :zipcode    => ship_address["zip"],
                                          # phone is currently blanked in AM's PPX response lib
+                                         :phone_area => ship_address["phone_area"] || "00", 
                                          :phone      => @ppx_details.params["phone"] || "(not given)"
 
         if (state = State.find_by_abbr(ship_address["state"]))
@@ -289,10 +291,12 @@ CheckoutController.class_eval do
           :name       => "#{order.ship_address.firstname} #{order.ship_address.lastname}",
           :address1   => order.ship_address.address1,
           :address2   => order.ship_address.address2,
+          :number     => order.ship_address.number, 
           :city       => order.ship_address.city,
           :state      => order.ship_address.state.nil? ? order.ship_address.state_name.to_s : order.ship_address.state.abbr,
           :country    => order.ship_address.country.iso,
           :zip        => order.ship_address.zipcode,
+          :phone_area => order.ship_address.phone_area, 
           :phone      => order.ship_address.phone
         }
       }
