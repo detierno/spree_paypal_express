@@ -74,12 +74,12 @@ CheckoutController.class_eval do
                                          :address1   => ship_address["address1"],
                                          :address2   => ship_address["address2"],
                                          :city       => ship_address["city"],
-                                         :number     => ship_address["number"], 
+                                         :number     => @order.ship_address.number || "00", 
                                          # :cpf        => @order.user.cpf,
                                          :country    => Country.find_by_iso(ship_address["country"]),
                                          :zipcode    => ship_address["zip"],
                                          # phone is currently blanked in AM's PPX response lib
-                                         :phone_area => ship_address["phone_area"] || "00", 
+                                         :phone_area => @order.ship_address.phone_area || "00", 
                                          :phone      => @ppx_details.params["phone"] || "(not given)"
 
         if (state = State.find_by_abbr(ship_address["state"]))
